@@ -60,7 +60,7 @@ public class ProductServiceRestClientAdapter implements ProductServiceClientPort
 	}		
 
 	private Product toProduct(GetProductResponse pr) {
-		if (pr==null) {
+		if (pr == null) {
 			return null; 
 		}
 		return new Product(
@@ -70,12 +70,10 @@ public class ProductServiceRestClientAdapter implements ProductServiceClientPort
 	}
 
 	private List<Product> toProducts(GetProductsResponse pr) {
-		List<Product> products = 
-			pr.getProducts()
-				.stream()
-				.map(product -> toProduct(product))
-				.collect(Collectors.toList());
-		return products; 
+        return pr.getProducts()
+            .stream()
+            .map(this::toProduct)
+            .collect(Collectors.toList());
 	}
 	
 }

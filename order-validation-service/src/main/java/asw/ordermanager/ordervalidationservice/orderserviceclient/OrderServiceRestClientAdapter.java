@@ -42,7 +42,7 @@ public class OrderServiceRestClientAdapter implements OrderServiceClientPort {
 	}
 
 	private Order toOrder(GetOrderResponse or) {
-		if (or==null) {
+		if (or == null) {
 			return null; 
 		}
 		return new Order(
@@ -61,12 +61,10 @@ public class OrderServiceRestClientAdapter implements OrderServiceClientPort {
 
 	/* Converte una collezione di OrderItemElement in una collezione di OrderItem. */ 
 	private List<OrderItem> toOrderItems(List<OrderItemElement> items) {
-		List<OrderItem> orderItems = 
-			items
-				.stream()
-				.map(item -> toOrderItem(item))
-				.collect(Collectors.toList());
-		return orderItems; 
+        return items
+            .stream()
+            .map(this::toOrderItem)
+            .collect(Collectors.toList());
 	}
 
 }

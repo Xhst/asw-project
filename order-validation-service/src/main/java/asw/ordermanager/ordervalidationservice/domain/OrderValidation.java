@@ -18,7 +18,7 @@ public class OrderValidation {
 
 	public OrderValidation(Long id, Order order, boolean isValid, String motivation) {
 		this.id = id;
-		if (order!=null) {
+		if (order != null) {
 			this.customer = order.getCustomer(); 
 			this.orderItems = order.getOrderItems(); 
 		}

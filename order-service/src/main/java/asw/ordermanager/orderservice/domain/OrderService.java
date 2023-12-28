@@ -13,29 +13,27 @@ public class OrderService {
 	private OrderRepository orderRepository;
 
  	public Order createOrder(String customer, String address, List<OrderItem> orderItems, double total) {
-		Order order = new Order(customer, address, orderItems, total); 
+		Order order = new Order(customer, address, orderItems, total);
+
 		order = orderRepository.save(order);
+
 		return order;
 	}
 
  	public Order getOrder(Long id) {
-		Order order = orderRepository.findById(id).orElse(null);
-		return order;
+        return orderRepository.findById(id).orElse(null);
 	}
 
 	public Collection<Order> getOrders() {
-		Collection<Order> orders = orderRepository.findAll();
-		return orders;
+        return orderRepository.findAll();
 	}
 
 	public Collection<Order> getOrdersByCustomer(String customer) {
-		Collection<Order> orders = orderRepository.findByCustomer(customer);
-		return orders;
+        return orderRepository.findByCustomer(customer);
 	}
 
 	public Collection<Order> getOrdersByProduct(String product) {
-		Collection<Order> orders = orderRepository.findByOrderItems_Product(product);
-		return orders;
+        return orderRepository.findByOrderItems_Product(product);
 	}
 	
 }

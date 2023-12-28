@@ -30,10 +30,12 @@ public class ProductsController {
 		String category = request.getCategory();
 		int stockLevel = request.getStockLevel();
 		double price = request.getPrice();
+
 		logger.info("REST CALL: createProduct " + name + ", " + category + ", " + stockLevel + ", " + price); 
+
 		Product product = productService.createProduct(name, category, stockLevel, price);
-		GetProductResponse productResponse = toProductResponse(product);
-		return productResponse; 
+
+        return toProductResponse(product);
 	}	
 
 	/* Trova il prodotto con name. */ 
@@ -41,26 +43,34 @@ public class ProductsController {
 	public GetProductResponse getProduct(@PathVariable String name) {
 		logger.info("REST CALL: getProduct " + name); 
 		Product product = productService.getProduct(name);
-		if (product==null) {
+
+		if (product == null) {
 			logger.info("REST CALL: getProduct " + name + ": Product not found"); 
 			throw new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Product not found"
 			);
 		}
+
 		GetProductResponse productResponse = toProductResponse(product);
-		logger.info("REST CALL: getProduct " + name + ": " + productResponse); 
+
+		logger.info("REST CALL: getProduct " + name + ": " + productResponse);
+
 		return productResponse; 
 	}
 
 	/* Trova tutti i prodotti. */ 
 	@GetMapping("/products")
 	public GetProductsResponse getProducts() {
-		Collection<Product> products = null; 
-		GetProductsResponse productsResponse = null; 
-		logger.info("REST CALL: getProducts"); 
+		Collection<Product> products;
+		GetProductsResponse productsResponse;
+
+		logger.info("REST CALL: getProducts");
+
 		products = productService.getProducts();
 		productsResponse = toProductsResponse(products);
-		logger.info("REST CALL: getProducts: " + productsResponse); 
+
+		logger.info("REST CALL: getProducts: " + productsResponse);
+
 		return productsResponse;
 	}
 	
@@ -68,12 +78,16 @@ public class ProductsController {
 	@PostMapping("/findproducts/bynames")
 	public GetProductsResponse findProductsByNames(@RequestBody GetProductsByNamesRequest request) {
 		List<String> names = request.getNames(); 
-		Collection<Product> products = null; 
-		GetProductsResponse productsResponse = null; 
-		logger.info("REST CALL: getProductsByNames " + names); 
+		Collection<Product> products;
+		GetProductsResponse productsResponse;
+
+		logger.info("REST CALL: getProductsByNames " + names);
+
 		products = productService.getProductsByNames(names);
 		productsResponse = toProductsResponse(products);
-		logger.info("REST CALL: getProductsByNames " + names + ": " + productsResponse); 
+
+		logger.info("REST CALL: getProductsByNames " + names + ": " + productsResponse);
+
 		return productsResponse;
 	}
 
@@ -94,11 +108,15 @@ public class ProductsController {
 	public GetProductResponse updateProductStockLevel(@RequestBody UpdateProductStockLevelRequest request) {
 		String name = request.getName();
 		int stockLevelVariation = request.getStockLevelVariation();
-		logger.info("REST CALL: updateProductStockLevel " + name + ", " + stockLevelVariation); 
+
+		logger.info("REST CALL: updateProductStockLevel " + name + ", " + stockLevelVariation);
+
 		Product product = productService.updateProductStockLevel(name, stockLevelVariation);
 		GetProductResponse productResponse = toProductResponse(product);
+
 		logger.info("REST CALL: updateProductStockLevel " + name + ", " + stockLevelVariation + ": " + productResponse); 
-		return productResponse; 
+
+		return productResponse;
 	}	
 
 	/* Converte un Product in una GetProductResponse. */ 
@@ -114,7 +132,7 @@ public class ProductsController {
 		List<GetProductResponse> productsResponse = 
 			products
 				.stream()
-				.map(product -> toProductResponse(product))
+				.map(this::toProductResponse)
 				.collect(Collectors.toList());
 		return new GetProductsResponse(productsResponse); 
 	}

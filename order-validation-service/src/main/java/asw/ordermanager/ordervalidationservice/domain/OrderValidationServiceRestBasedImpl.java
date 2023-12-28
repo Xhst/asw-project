@@ -20,20 +20,23 @@ public class OrderValidationServiceRestBasedImpl implements OrderValidationServi
 	 * Nota: con una sola chiamata REST trova tutti i prodotti dell'ordine. */ 
 	public OrderValidation validateOrder(Long id) {
 		Order order = orderServiceClient.getOrder(id); 
-		String motivation = ""; 
-		if (order==null) {
+		String motivation = "";
+
+		if (order == null) {
 			motivation += "L'ordine " + id + " non esiste.";
 			return new OrderValidation(id, order, false, motivation);
 		}
+
 		List<String> productNames = toProductNames(order.getOrderItems()); 
 		List<Product> products = productServiceClient.getProductsByNames(productNames); 
 		Map<String,Product> productMap = toProductMap(products); 
 		
-		boolean isValid = true; 
+		boolean isValid = true;
+
 		for (OrderItem orderItem: order.getOrderItems()) {
 			String name = orderItem.getProduct(); 
 			Product product = productMap.get(name);
-			if (product==null) {
+			if (product == null) {
 				isValid = false; 
 				motivation += "Il prodotto " + name + " non esiste. ";
 				// break; 
@@ -43,7 +46,7 @@ public class OrderValidationServiceRestBasedImpl implements OrderValidationServi
 				// break; 
 			}
 		}
-		if (motivation.length()==0) {
+		if (motivation.isEmpty()) {
 			motivation = "OK"; 
 		}
 		return new OrderValidation(id, order, isValid, motivation);
@@ -52,7 +55,7 @@ public class OrderValidationServiceRestBasedImpl implements OrderValidationServi
 	private List<String> toProductNames(List<OrderItem> items) {
 		List<String> names = 
 			items.stream()
-				.map(item -> item.getProduct())
+				.map(OrderItem::getProduct)
 				.collect(Collectors.toList());
 		return names; 
 	}

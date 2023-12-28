@@ -25,11 +25,15 @@ public class OrderValidationsController {
 	@GetMapping("/ordervalidations/{id}")
 	public OrderValidation validateOrder(@PathVariable Long id) {
 		Instant start = Instant.now();
-		logger.info("REST CALL: validateOrder " + id); 
-		OrderValidation orderValidation = orderValidationService.validateOrder(id); 
+
+		logger.info("REST CALL: validateOrder " + id);
+
+		OrderValidation orderValidation = orderValidationService.validateOrder(id);
 		Duration duration = Duration.between(start, Instant.now()); 
+
 		logger.info("validateOrder " + id + " (duration " + duration.toMillis() + " ms): " + orderValidation);
-		return orderValidation; 
+
+		return orderValidation;
 	}
 	
 }

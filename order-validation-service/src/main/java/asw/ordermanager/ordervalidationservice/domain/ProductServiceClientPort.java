@@ -6,7 +6,7 @@ public interface ProductServiceClientPort {
 
 	public Product getProduct(String name); 
 
-//	public List<Product> getProducts(); 
+	//	public List<Product> getProducts();
 
 	public List<Product> getProductsByNames(List<String> names); 
 

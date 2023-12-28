@@ -28,12 +28,15 @@ public class OrdersController {
 	public GetOrderResponse createOrder(@RequestBody CreateOrderRequest request) {
 		String customer = request.getCustomer();
 		String address = request.getAddress();
+
 		List<OrderItem> orderItems = toOrderItems(request.getOrderItems());
 		double total = request.getTotal();
+
 		logger.info("REST CALL: createOrder " + customer + ", " + address + ", " + orderItems + ", " + total); 
+
 		Order order = orderService.createOrder(customer, address, orderItems, total);
-		GetOrderResponse orderResponse = toOrderResponse(order);
-		return orderResponse; 
+
+		return toOrderResponse(order);
 	}	
 
 	/* Trova l'ordine con id. */ 
@@ -41,49 +44,63 @@ public class OrdersController {
 	public GetOrderResponse getOrder(@PathVariable Long id) {
 		logger.info("REST CALL: getOrder " + id); 
 		Order order = orderService.getOrder(id);
-		if (order==null) {
+
+		if (order == null) {
 			logger.info("REST CALL: getOrder " + id + ": Order not found"); 
 			throw new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Order not found"
 			);
 		}
+
 		GetOrderResponse orderResponse = toOrderResponse(order);
-		logger.info("REST CALL: getOrder " + id + ": " + orderResponse); 
+		logger.info("REST CALL: getOrder " + id + ": " + orderResponse);
+
 		return orderResponse; 
 	}
 
 	/* Trova tutti gli ordini. */ 
 	@GetMapping("/orders")
 	public Collection<GetOrderResponse> getOrders() {
-		Collection<Order> orders = null; 
-		Collection<GetOrderResponse> ordersResponse = null; 
-		logger.info("REST CALL: getOrders"); 
+		Collection<Order> orders;
+		Collection<GetOrderResponse> ordersResponse;
+
+		logger.info("REST CALL: getOrders");
+
 		orders = orderService.getOrders();
 		ordersResponse = toOrdersResponse(orders);
-		logger.info("REST CALL: getOrders: " + ordersResponse); 
+
+		logger.info("REST CALL: getOrders: " + ordersResponse);
+
 		return ordersResponse;
 	}
 
 	/* Trova tutti gli ordini di un cliente. */ 
 	@GetMapping("/findorders/customer/{customer}")
 	public Collection<GetOrderResponse> getOrdersByCustomer(@PathVariable String customer) {
-		Collection<Order> orders = null; 
-		Collection<GetOrderResponse> ordersResponse = null; 
-		logger.info("REST CALL: getOrdersByCustomer " + customer); 
+		Collection<Order> orders;
+		Collection<GetOrderResponse> ordersResponse;
+
+		logger.info("REST CALL: getOrdersByCustomer " + customer);
+
 		orders = orderService.getOrdersByCustomer(customer);
 		ordersResponse = toOrdersResponse(orders);
-		logger.info("REST CALL: getOrdersByCustomer " + customer + ": " + ordersResponse); 
+
+		logger.info("REST CALL: getOrdersByCustomer " + customer + ": " + ordersResponse);
+
 		return ordersResponse;
 	}
 
 	/* Trova tutti gli ordini per un prodotto. */
 	@GetMapping("/findorders/product/{product}")
 	public Collection<GetOrderResponse> getOrdersByProduct(@PathVariable String product) {
-		Collection<Order> orders = null; 
-		Collection<GetOrderResponse> ordersResponse = null; 
-		logger.info("REST CALL: getOrdersByProduct " + product); 
+		Collection<Order> orders;
+		Collection<GetOrderResponse> ordersResponse;
+
+		logger.info("REST CALL: getOrdersByProduct " + product);
+
 		orders = orderService.getOrdersByProduct(product);
 		ordersResponse = toOrdersResponse(orders);
+
 		logger.info("REST CALL: getOrdersByProduct " + product + ": " + ordersResponse); 
 		return ordersResponse;
 	} 
@@ -99,12 +116,10 @@ public class OrdersController {
 
 	/* Converte una collezione di Order in una collezione di GetOrderResponse. */ 
 	private Collection<GetOrderResponse> toOrdersResponse(Collection<Order> orders) {
-		Collection<GetOrderResponse> ordersResponse = 
-			orders
-				.stream()
-				.map(order -> toOrderResponse(order))
-				.collect(Collectors.toList());
-		return ordersResponse; 
+        return orders
+            .stream()
+            .map(this::toOrderResponse)
+            .collect(Collectors.toList());
 	}
 	
 	/* Converte un OrderItemElement in un OrderItem. */ 
@@ -116,12 +131,10 @@ public class OrdersController {
 
 	/* Converte una collezione di OrderItemElement in una collezione di OrderItem. */ 
 	private List<OrderItem> toOrderItems(List<OrderItemElement> items) {
-		List<OrderItem> orderItems = 
-			items
-				.stream()
-				.map(item -> toOrderItem(item))
-				.collect(Collectors.toList());
-		return orderItems; 
+        return items
+            .stream()
+            .map(this::toOrderItem)
+            .collect(Collectors.toList());
 	}
 
 	/* Converte un OrderItem in un OrderItemElement. */ 
@@ -133,12 +146,10 @@ public class OrdersController {
 
 	/* Converte una collezione di OrderItem in una collezione di OrderItemElement. */ 
 	private List<OrderItemElement> toOrderItemElements(List<OrderItem> items) {
-		List<OrderItemElement> orderItems = 
-			items
-				.stream()
-				.map(item -> toOrderItemElement(item))
-				.collect(Collectors.toList());
-		return orderItems; 
+        return items
+            .stream()
+            .map(this::toOrderItemElement)
+            .collect(Collectors.toList());
 	}
 
 }
