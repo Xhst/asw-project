@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+
+  consul:
+    container_name: consul
+    image: docker.io/hashicorp/consul
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+
+  order-service:
+    container_name: order-service
+    image: asw-project-23-24/order-service
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    depends_on:
+      - "consul"
+
+  product-service:
+    container_name: product-service
+    image: asw-project-23-24/product-service
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    depends_on:
+      - "consul"
+
+  order-validation-service:
+    container_name: order-validation-service
+    image: asw-project-23-24/order-validation-service
+    build:
+      context: ./order-validation-service
+      dockerfile: Dockerfile
+    depends_on:
+      - "consul"
+
+  api-gateway:
+    container_name: api-gateway
+    image: asw-project-23-24/api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "consul"
+
