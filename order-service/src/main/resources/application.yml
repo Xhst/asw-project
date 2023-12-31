@@ -6,9 +6,22 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+  spring:
+    cloud:
+      consul:
+        host: consul
+        port: 8500
+        discovery:
+          instanceId: ${spring.application.name}-${spring.cloud.client.hostname}-${random.value}
+          healthCheckPath: /actuator/health
+          healthCheckInterval: 10s
+          healthCheckCriticalTimeout: 45s
+          queryPassing: true
+      loadbalancer:
+        ribbon.enabled: false
 
-server: 
-  port: 8080
+server:
+  port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
 #  port: 8081 
   # per swagger dietro un api gateway 
