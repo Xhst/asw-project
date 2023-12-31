@@ -3,7 +3,6 @@ target/
 **/target/
 *.class
 !.mvn/wrapper/maven-wrapper.jar
-.gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -34,3 +33,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Gradle ###
+.gradle/
+gradle/
+gradlew
+gradlew.bat
