@@ -3,7 +3,6 @@ version: "3.8"
 services:
 
   consul:
-    container_name: consul
     image: docker.io/hashicorp/consul
     networks:
       - asw-project
@@ -13,7 +12,6 @@ services:
       - "8600:8600"
 
   order-service:
-    container_name: order-service
     image: asw-project-23-24/order-service
     build:
       context: ./
@@ -27,7 +25,6 @@ services:
       - "order-service-db"
 
   product-service:
-    container_name: product-service
     image: asw-project-23-24/product-service
     build:
       context: ./
@@ -41,7 +38,6 @@ services:
       - "product-service-db"
 
   order-validation-service:
-    container_name: order-validation-service
     image: asw-project-23-24/order-validation-service
     build:
       context: ./
@@ -54,7 +50,6 @@ services:
       - "consul"
 
   api-gateway:
-    container_name: api-gateway
     image: asw-project-23-24/api-gateway
     build:
       context: ./
@@ -67,7 +62,6 @@ services:
       - "consul"
 
   order-service-db:
-    container_name: order-service-db
     image: postgres
     environment:
       POSTGRES_USER: postgres
@@ -82,7 +76,6 @@ services:
     restart: unless-stopped
 
   product-service-db:
-    container_name: product-service-db
     image: postgres
     environment:
       POSTGRES_USER: postgres
