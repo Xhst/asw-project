@@ -4,8 +4,6 @@ services:
 
   consul:
     image: docker.io/hashicorp/consul
-    networks:
-      - asw-project
     ports:
       - "8400:8400"
       - "8500:8500"
@@ -18,8 +16,6 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: order-service
-    networks:
-      - asw-project
     depends_on:
       - "consul"
       - "order-service-db"
@@ -31,8 +27,6 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: product-service
-    networks:
-      - asw-project
     depends_on:
       - "consul"
       - "product-service-db"
@@ -44,8 +38,6 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: order-validation-service
-    networks:
-      - asw-project
     depends_on:
       - "consul"
 
@@ -56,8 +48,6 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: api-gateway
-    networks:
-      - asw-project
     depends_on:
       - "consul"
 
@@ -71,8 +61,6 @@ services:
       - order-service-db:/data/postgres
     ports:
       - "5432:5432"
-    networks:
-      - asw-project
     restart: unless-stopped
 
   product-service-db:
@@ -85,14 +73,7 @@ services:
       - product-service-db:/data/postgres
     ports:
       - "5433:5432"
-    networks:
-      - asw-project
     restart: unless-stopped
-
-networks:
-  asw-project:
-    driver: bridge
-
 
 volumes:
   product-service-db:
