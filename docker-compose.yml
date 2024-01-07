@@ -91,7 +91,7 @@ services:
     volumes:
       - order-validation-service-db:/data/postgres
     ports:
-      - "${ORDER_VALIDATION_POSTGRES_PORT:5434}:5432"
+      - "${ORDER_VALIDATION_POSTGRES_PORT:-5434}:5432"
     restart: unless-stopped
 
   pgadmin:
@@ -104,7 +104,7 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "5050:80"
+      - "${PGADMIN_PORT:-5050}:80"
     restart: unless-stopped
 
 volumes:
