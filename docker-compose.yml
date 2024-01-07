@@ -46,6 +46,7 @@ services:
       replicas: 2
     depends_on:
       - "consul"
+      - "order-validation-service-db"
 
   api-gateway:
     image: asw-project-23-24/api-gateway
