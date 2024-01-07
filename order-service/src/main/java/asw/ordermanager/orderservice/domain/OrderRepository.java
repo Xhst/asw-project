@@ -6,11 +6,11 @@ import java.util.*;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
-	public Collection<Order> findAll();
+	Collection<Order> findAll();
 
-	public Collection<Order> findByCustomer(String customer);
+	Collection<Order> findByCustomer(String customer);
 
-	public Collection<Order> findByOrderItems_Product(String product);
+	Collection<Order> findByOrderItems_Product(String product);
 
 }
 
