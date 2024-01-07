@@ -67,7 +67,7 @@ services:
     volumes:
       - order-service-db:/data/postgres
     ports:
-      - "5432:5432"
+      - "${ORDER_POSTGRES_PORT:-5432}:5432"
     restart: unless-stopped
 
   product-service-db:
@@ -79,7 +79,7 @@ services:
     volumes:
       - product-service-db:/data/postgres
     ports:
-      - "5433:5432"
+      - "${PRODUCT_POSTGRES_PORT:-5433}:5432"
     restart: unless-stopped
 
   order-validation-service-db:
@@ -91,7 +91,7 @@ services:
     volumes:
       - order-validation-service-db:/data/postgres
     ports:
-      - "5433:5432"
+      - "${ORDER_VALIDATION_POSTGRES_PORT:5434}:5432"
     restart: unless-stopped
 
   pgadmin:
