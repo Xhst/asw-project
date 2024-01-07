@@ -6,6 +6,7 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+
   cloud:
     consul:
       host: consul
@@ -19,14 +20,24 @@ spring:
     loadbalancer:
       ribbon.enabled: false
 
+  datasource:
+    url: jdbc:postgresql://order-validation-service-db:5432/db
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    open-in-view: false
+
 server:
   port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
 #  port: 8083 
   # per swagger dietro un api gateway 
   forward-headers-strategy: framework
-  
-# fa il logging dei comandi sql eseguiti 
-#spring.jpa.show-sql: true
-# disable OSIV
-spring.jpa.open-in-view: false
+
