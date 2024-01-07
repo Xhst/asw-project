@@ -54,8 +54,8 @@ services:
   order-service-db:
     image: postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${ORDER_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${ORDER_POSTGRES_PASSWORD:-postgres}
       PGDATA: /data/postgres
     volumes:
       - order-service-db:/data/postgres
@@ -66,11 +66,23 @@ services:
   product-service-db:
     image: postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${PRODUCT_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${PRODUCT_POSTGRES_PASSWORD:-postgres}
       PGDATA: /data/postgres
     volumes:
       - product-service-db:/data/postgres
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+  order-validation-service-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${ORDER_VALIDATION_POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${ORDER_VALIDATION_POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    volumes:
+      - order-validation-service-db:/data/postgres
     ports:
       - "5433:5432"
     restart: unless-stopped
@@ -91,5 +103,6 @@ services:
 volumes:
   product-service-db:
   order-service-db:
+  order-validation-service-db:
   pgadmin:
 
