@@ -3,6 +3,7 @@ version: "3.8"
 services:
 
   consul:
+    container_name: consul
     image: docker.io/hashicorp/consul
     ports:
       - "8400:8400"
@@ -59,6 +60,7 @@ services:
       - "consul"
 
   order-service-db:
+    container_name: order-service-db
     image: postgres
     environment:
       POSTGRES_USER: ${ORDER_POSTGRES_USER:-postgres}
@@ -71,6 +73,7 @@ services:
     restart: unless-stopped
 
   product-service-db:
+    container_name: product-service-db
     image: postgres
     environment:
       POSTGRES_USER: ${PRODUCT_POSTGRES_USER:-postgres}
@@ -83,6 +86,7 @@ services:
     restart: unless-stopped
 
   order-validation-service-db:
+    container_name: order-validation-service-db
     image: postgres
     environment:
       POSTGRES_USER: ${ORDER_VALIDATION_POSTGRES_USER:-postgres}
