@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: order-service
+    deploy:
+      replicas: 2
     depends_on:
       - "consul"
       - "order-service-db"
@@ -27,6 +29,8 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: product-service
+    deploy:
+      replicas: 2
     depends_on:
       - "consul"
       - "product-service-db"
@@ -38,6 +42,8 @@ services:
       dockerfile: Dockerfile
       args:
         SERVICE_NAME: order-validation-service
+    deploy:
+      replicas: 2
     depends_on:
       - "consul"
 
