@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderKafkaMessagePublisherAdapter implements OrderMessagePublisherPort {
 
-    @Value("${asw.kafka.channel.out}")
+    @Value("${asw.kafka.channel.order}")
     private String channel;
 
     @Autowired
