@@ -33,6 +33,18 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: kafka:9092
+
+asw:
+  kafka:
+    channel:
+      product-created: product-created
+      product-stock: product-stock
       
 server:
   port: ${PORT:${SERVER_PORT:0}}
