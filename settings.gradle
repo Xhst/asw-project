@@ -6,3 +6,5 @@ include 'order-validation-service'
 include 'api-gateway'
 
 rootProject.name = 'asw-ordermanager'
+include 'common-api'
+
