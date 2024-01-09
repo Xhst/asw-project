@@ -18,6 +18,5 @@ public class OrderKafkaMessagePublisherAdapter implements OrderMessagePublisherP
     @Override
     public void publish(String message) {
         template.send(channel, message);
-        // template.flush(); è da togliere???
     }
 }
