@@ -43,9 +43,9 @@ spring:
 asw:
   kafka:
     channel:
-      product-created: product-created
-      product-stock: product-stock
-      
+      product: product
+
+
 server:
   port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
