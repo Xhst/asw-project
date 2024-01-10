@@ -21,6 +21,6 @@ for i in "$@"; do
 done;
 
 echo "# trova tutti gli ordini di un cliente" 
-echo $(curl -s localhost:8080/orderservice/findorders/customer/${CUSTOMER}) | json_pp
+echo $(curl -s localhost:8080/order-service/findorders/customer/${CUSTOMER}) | json_pp
 echo 
 

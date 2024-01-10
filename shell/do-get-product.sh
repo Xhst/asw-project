@@ -23,6 +23,6 @@ for i in "$@"; do
 done;
 
 echo "# trova il prodotto $PRODUCTNAME" 
-echo $(curl -s localhost:8080/productservice/products/${PRODUCTNAME}) # | json_pp
+echo $(curl -s localhost:8080/product-service/products/${PRODUCTNAME}) # | json_pp
 echo 
 

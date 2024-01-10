@@ -31,7 +31,7 @@ public class ProductServiceRestClientAdapter implements ProductServiceClientPort
 		GetProductResponse pr = null; 
         Mono<GetProductResponse> response = loadBalancedWebClient
                 .get()
-				.uri("http://productservice/products/{name}", name)
+				.uri("http://product-service/products/{name}", name)
                 .retrieve()
                 .bodyToMono(GetProductResponse.class);
         try {
@@ -47,7 +47,7 @@ public class ProductServiceRestClientAdapter implements ProductServiceClientPort
 		GetProductsResponse pr = null; 
         Mono<GetProductsResponse> response = loadBalancedWebClient
                 .post()
-				.uri("http://productservice/findproducts/bynames")
+				.uri("http://product-service/findproducts/bynames")
 				.body(BodyInserters.fromValue(request))
                 .retrieve()
                 .bodyToMono(GetProductsResponse.class);

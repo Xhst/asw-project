@@ -69,9 +69,9 @@ L'applicazione *OrderManager* è composta dai seguenti microservizi:
   * `GET /ordervalidations/{id}` calcola e restituisce la convalida di un ordine (dato l'id) 
 
 * Il servizio *api-gateway* (esposto sulla porta *8080*) è l'API gateway dell'applicazione che: 
-  * espone il servizio *product-service* sul path `/productservice` - ad esempio, `GET /productservice/products`
-  * espone il servizio *order-service* sul path `/orderservice` - ad esempio, `GET /orderservice/orders/{id}`
-  * espone il servizio *order-validation-service* sul path `/ordervalidationservice` - ad esempio, `GET /ordervalidationservice/ordervalidations/{id}`
+  * espone il servizio *product-service* sul path `/product-service` - ad esempio, `GET /product-service/products`
+  * espone il servizio *order-service* sul path `/order-service` - ad esempio, `GET /order-service/orders/{id}`
+  * espone il servizio *order-validation-service* sul path `/order-validation-service` - ad esempio, `GET /order-validation-service/ordervalidations/{id}`
 
 
 ## Costruzione 

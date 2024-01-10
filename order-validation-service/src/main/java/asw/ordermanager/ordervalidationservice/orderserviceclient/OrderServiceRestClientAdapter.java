@@ -30,7 +30,7 @@ public class OrderServiceRestClientAdapter implements OrderServiceClientPort {
 		GetOrderResponse or = null; 
         Mono<GetOrderResponse> response = loadBalancedWebClient
                 .get()
-				.uri("http://orderservice/orders/{id}", id)
+				.uri("http://order-service/orders/{id}", id)
                 .retrieve()
                 .bodyToMono(GetOrderResponse.class);
         try {

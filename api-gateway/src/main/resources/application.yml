@@ -29,21 +29,21 @@ spring:
           enabled: false
       routes:
       - id: orderservice_route
-        uri: lb://orderservice
+        uri: lb://order-service
         predicates:
-        - Path=/orderservice/**
+        - Path=/order-service/**
         filters:
         - StripPrefix=1
       - id: productservice_route
-        uri: lb://productservice
+        uri: lb://product-service
         predicates:
-        - Path=/productservice/**
+        - Path=/product-service/**
         filters:
         - StripPrefix=1
       - id: ordervalidationservice_route
-        uri: lb://ordervalidationservice
+        uri: lb://order-validation-service
         predicates:
-        - Path=/ordervalidationservice/**
+        - Path=/order-validation-service/**
         filters:
         - StripPrefix=1
     
