@@ -2,7 +2,7 @@
 --- 
 spring: 
   application: 
-    name: productservice
+    name: product-service
   output:
     ansi:
       enabled: ALWAYS
