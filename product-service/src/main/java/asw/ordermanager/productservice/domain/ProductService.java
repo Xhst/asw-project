@@ -37,8 +37,11 @@ public class ProductService {
 	}	
 
  	public Product updateProductStockLevel(String name, int stockLevelVariation) {
-		Product product = getProduct(name); 
-		product.setStockLevel(product.getStockLevel() + stockLevelVariation);
+		Product product = getProduct(name);
+
+		int newStockLevel = Math.max((product.getStockLevel() + stockLevelVariation), 0);
+		product.setStockLevel(newStockLevel);
+
 		product = productRepository.save(product);
 
 		return product;
