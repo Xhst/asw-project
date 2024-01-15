@@ -1,5 +1,6 @@
 package asw.ordermanager.productservice.domain;
 
+import asw.ordermanager.productservice.api.event.ProductCreatedEvent;
 import asw.ordermanager.productservice.api.event.ProductStockLevelUpdatedEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class ProductService {
 		Product product = new Product(name, category, stockLevel, price);
 
 		product = productRepository.save(product);
+
+		productEventPublisher.publish(new ProductCreatedEvent(name, stockLevel, price));
 
 		return product;
 	}
