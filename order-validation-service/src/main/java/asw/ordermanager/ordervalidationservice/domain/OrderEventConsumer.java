@@ -2,24 +2,24 @@ package asw.ordermanager.ordervalidationservice.domain;
 
 import asw.ordermanager.common.api.event.DomainEvent;
 import asw.ordermanager.orderservice.api.event.OrderCreatedEvent;
-import asw.ordermanager.orderservice.api.event.OrderItemElement;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.*;
 
 @Service
-public class OrderEventsConsumer {
-    private final Logger logger = Logger.getLogger(OrderEventsConsumer.class.toString());
+public class OrderEventConsumer {
+    private final Logger logger = Logger.getLogger(OrderEventConsumer.class.toString());
 
     public void onEvent(DomainEvent event) {
-        if (event instanceof OrderCreatedEvent evt) {
-            onRestaurantCreated(evt);
-        } else {
-            logger.info("UNKNOWN EVENT: " + event);
+        if (event instanceof OrderCreatedEvent e) {
+            onOrderCreated(e);
+            return;
         }
+
+        logger.info("UNKNOWN EVENT: " + event);
     }
 
-    private void onRestaurantCreated(OrderCreatedEvent event) {
+    private void onOrderCreated(OrderCreatedEvent event) {
         Order order = new Order(
                 event.getId(),
                 event.getCustomer(),
