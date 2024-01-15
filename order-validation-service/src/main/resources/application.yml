@@ -39,6 +39,10 @@ asw:
     channel:
       order: order
       product: product
+    order:
+      group-id: order-group
+    product:
+      group-id: product-group
 
 server:
   port: ${PORT:${SERVER_PORT:0}}

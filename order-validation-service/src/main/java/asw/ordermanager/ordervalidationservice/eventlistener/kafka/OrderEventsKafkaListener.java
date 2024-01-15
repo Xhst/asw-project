@@ -17,7 +17,7 @@ public class OrderEventsKafkaListener {
     @Autowired
     private OrderEventsConsumer orderEventConsumer;
 
-    @KafkaListener(topics = "${asw.kafka.channel.order}")
+    @KafkaListener(topics = "${asw.kafka.channel.order}", groupId = "${asw.kafka.order.group-id}")
     public void listen(ConsumerRecord<String, DomainEvent> record) throws Exception {
         logger.info("ORDER EVENT LISTENER: " + record.toString());
         DomainEvent event = record.value();
