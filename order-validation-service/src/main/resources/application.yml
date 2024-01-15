@@ -1,4 +1,4 @@
-# application.yml 
+# application.yml
 --- 
 spring: 
   application: 
@@ -33,6 +33,18 @@ spring:
         format_sql: true
     show-sql: true
     open-in-view: false
+
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+      auto-offset-reset: earliest
 
 asw:
   kafka:
