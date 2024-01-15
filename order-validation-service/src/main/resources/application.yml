@@ -34,6 +34,12 @@ spring:
     show-sql: true
     open-in-view: false
 
+asw:
+  kafka:
+    channel:
+      order: order
+      product: product
+
 server:
   port: ${PORT:${SERVER_PORT:0}}
 #  port: 8080
