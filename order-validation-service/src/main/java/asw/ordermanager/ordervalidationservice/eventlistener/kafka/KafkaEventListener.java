@@ -2,6 +2,7 @@ package asw.ordermanager.ordervalidationservice.eventlistener.kafka;
 
 import asw.ordermanager.common.api.event.DomainEvent;
 import asw.ordermanager.ordervalidationservice.domain.OrderEventConsumer;
+import asw.ordermanager.ordervalidationservice.domain.ProductEventConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,7 +18,8 @@ public class KafkaEventListener {
     @Autowired
     private OrderEventConsumer orderEventConsumer;
 
-
+    @Autowired
+    private ProductEventConsumer productEventConsumer;
 
     @KafkaListener(topics = "${asw.kafka.channel.order}", groupId = "${asw.kafka.order.group-id}")
     public void listenOrderTopic(ConsumerRecord<String, DomainEvent> record) throws Exception {
@@ -30,7 +32,7 @@ public class KafkaEventListener {
     public void listenProductTopic(ConsumerRecord<String, DomainEvent> record) throws Exception {
         logger.info("PRODUCT EVENT LISTENER: " + record.toString());
         DomainEvent event = record.value();
-        orderEventConsumer.onEvent(event);
+        productEventConsumer.onEvent(event);
     }
 
 }
