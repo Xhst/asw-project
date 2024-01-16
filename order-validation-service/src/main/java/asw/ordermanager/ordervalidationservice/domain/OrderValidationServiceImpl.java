@@ -8,18 +8,18 @@ import java.util.*;
 import java.util.stream.*; 
 import java.util.function.Function; 
 
-@Service("order-validation-service-rest")
-public class OrderValidationServiceRestBasedImpl implements OrderValidationService {
+@Service
+public class OrderValidationServiceImpl implements OrderValidationService {
 
 	@Autowired
-	@Qualifier("order-service-client-rest")
+	@Qualifier("order-service-client-jpa")
 	private OrderServiceClientPort orderServiceClient;
 
-	@Autowired 
+	@Autowired
+	@Qualifier("product-service-client-jpa")
 	private ProductServiceClientPort productServiceClient;
 
-	/* Verifica la validità di un ordine. 
-	 * Nota: con una sola chiamata REST trova tutti i prodotti dell'ordine. */ 
+	/* Verifica la validità di un ordine. */
 	public OrderValidation validateOrder(Long id) {
 		Order order = orderServiceClient.getOrder(id); 
 		String motivation = "";

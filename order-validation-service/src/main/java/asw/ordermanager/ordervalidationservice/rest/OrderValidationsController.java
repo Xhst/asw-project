@@ -20,7 +20,6 @@ public class OrderValidationsController {
     private final Logger logger = Logger.getLogger(this.getClass().toString());
 
 	@Autowired
-	@Qualifier("order-validation-service-event")
 	private OrderValidationService orderValidationService;
 
 	/* Verifica se l'ordine con id è valido. */ 
