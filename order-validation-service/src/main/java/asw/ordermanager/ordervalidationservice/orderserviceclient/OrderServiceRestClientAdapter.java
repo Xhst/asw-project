@@ -17,7 +17,7 @@ import java.util.stream.*;
 
 import java.util.logging.Logger; 
 
-@Service 
+@Service("order-service-client-rest")
 public class OrderServiceRestClientAdapter implements OrderServiceClientPort {
 
 	@Autowired 
@@ -46,8 +46,8 @@ public class OrderServiceRestClientAdapter implements OrderServiceClientPort {
 			return null; 
 		}
 		return new Order(
-			or.getId(), 
-			or.getCustomer(), 
+			or.getId(),
+			or.getCustomer(),
 			toOrderItems(or.getOrderItems()), 
 			or.getTotal());
 	}

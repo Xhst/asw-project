@@ -1,8 +1,9 @@
 package asw.ordermanager.ordervalidationservice.rest;
 
-import asw.ordermanager.ordervalidationservice.domain.*; 
+import asw.ordermanager.ordervalidationservice.domain.*;
 
-import org.springframework.web.bind.annotation.*; 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +19,8 @@ public class OrderValidationsController {
 
     private final Logger logger = Logger.getLogger(this.getClass().toString());
 
-	@Autowired 
+	@Autowired
+	@Qualifier("order-validation-service-event")
 	private OrderValidationService orderValidationService;
 
 	/* Verifica se l'ordine con id è valido. */ 

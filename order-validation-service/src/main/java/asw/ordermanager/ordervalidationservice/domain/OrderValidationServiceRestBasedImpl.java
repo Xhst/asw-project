@@ -1,5 +1,6 @@
 package asw.ordermanager.ordervalidationservice.domain;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -7,10 +8,11 @@ import java.util.*;
 import java.util.stream.*; 
 import java.util.function.Function; 
 
-@Service 
+@Service("order-validation-service-rest")
 public class OrderValidationServiceRestBasedImpl implements OrderValidationService {
 
-	@Autowired 
+	@Autowired
+	@Qualifier("order-service-client-rest")
 	private OrderServiceClientPort orderServiceClient;
 
 	@Autowired 
