@@ -27,8 +27,7 @@ public class OrderEventConsumer {
         Order order = new Order(
                 event.getId(),
                 event.getCustomer(),
-                event.getOrderItems().stream().map(x -> new OrderItem(x.getProduct(), x.getQuantity())).toList(),
-                event.getTotal()
+                event.getOrderItems().stream().map(x -> new OrderItem(x.getProduct(), x.getQuantity())).toList()
         );
 
         orderRepository.save(order);

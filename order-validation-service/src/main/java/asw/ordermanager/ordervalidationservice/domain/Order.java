@@ -21,7 +21,6 @@ public class Order implements Comparable<Order> {
 	private String customer;
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<OrderItem> orderItems;
-	private double total; 
 
 	@Override
 	public int compareTo(Order other) {
