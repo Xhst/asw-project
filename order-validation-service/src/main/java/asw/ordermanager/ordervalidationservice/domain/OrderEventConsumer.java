@@ -2,6 +2,7 @@ package asw.ordermanager.ordervalidationservice.domain;
 
 import asw.ordermanager.common.api.event.DomainEvent;
 import asw.ordermanager.orderservice.api.event.OrderCreatedEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.*;
@@ -9,6 +10,9 @@ import java.util.logging.*;
 @Service
 public class OrderEventConsumer {
     private final Logger logger = Logger.getLogger(OrderEventConsumer.class.toString());
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     public void onEvent(DomainEvent event) {
         if (event instanceof OrderCreatedEvent e) {
@@ -27,7 +31,7 @@ public class OrderEventConsumer {
                 event.getTotal()
         );
 
-        //metti l'ordine nel db
+        orderRepository.save(order);
 
         logger.info("CREATED ORDER: " + order);
     }
