@@ -18,7 +18,7 @@ import java.util.stream.*;
 
 import java.util.logging.Logger; 
 
-@Service("order-service-client-rest")
+@Service("product-service-client-rest")
 public class ProductServiceRestClientAdapter implements ProductServiceClientPort {
 
 	@Autowired 
