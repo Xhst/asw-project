@@ -10,7 +10,7 @@ services:
       args:
         SERVICE_NAME: order-service
     deploy:
-      replicas: 1
+      replicas: 2
     depends_on:
       - "consul"
       - "order-service-db"
@@ -23,7 +23,7 @@ services:
       args:
         SERVICE_NAME: product-service
     deploy:
-      replicas: 1
+      replicas: 2
     depends_on:
       - "consul"
       - "product-service-db"
@@ -36,7 +36,7 @@ services:
       args:
         SERVICE_NAME: order-validation-service
     deploy:
-      replicas: 1
+      replicas: 2
     depends_on:
       - "consul"
       - "order-validation-service-db"
