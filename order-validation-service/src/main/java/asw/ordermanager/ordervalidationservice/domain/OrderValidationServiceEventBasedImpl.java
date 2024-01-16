@@ -11,6 +11,10 @@ public class OrderValidationServiceEventBasedImpl implements OrderValidationServ
     @Qualifier("order-service-client-jpa")
     private OrderServiceClientPort orderServiceClient;
 
+    @Autowired
+    @Qualifier("product-service-client-jpa")
+    private ProductServiceClientPort productServiceClient;
+
     @Override
     public OrderValidation validateOrder(Long id) {
         return null;
