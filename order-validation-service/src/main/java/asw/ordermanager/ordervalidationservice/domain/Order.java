@@ -3,7 +3,6 @@ package asw.ordermanager.ordervalidationservice.domain;
 import java.util.*;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.*;
 
 /* Ordine. */
