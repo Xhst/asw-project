@@ -1,130 +1,71 @@
-# ORDER-MANAGER
+# ASW-PROJECT-23-24
+Group project for [ASW](http://cabibbo.inf.uniroma3.it/asw/) (Software Systems Architectures) course.
 
-Progetto del corso di Analisi e progettazione del software per l'anno accademico 2023-2024. 
+Course held in the year 2023-2024 by professor [Luca Cabibbo](https://github.com/lucacabibbo) at Roma Tre University.
 
+---
 
-## Descrizione di questo progetto 
+### Languages and technologies
+<img src="https://skillicons.dev/icons?i=java,gradle,spring,postgres,docker,kafka">
 
-Questo progetto contiene il il codice di *OrderManager*, una semplice applicazione a microservizi per la gestione di ordini di prodotti. 
+---
+## Description
 
-L'applicazione *OrderManager* consente di: 
-* creare prodotti e modificare la loro quantità disponibile (ovvero il loro livello di inventario);
-* creare ordini relativi a uno o più prodotti; 
-* richiedere la validazione di un ordine. 
+This project contains the code for *OrderManager*, a simple microservice application for managing product orders.
 
-Un ordine si intende valido se l'ordine esiste, se tutti i prodotti ordinati esistono 
-e se inoltre le quantità ordinate di ciascuno dei prodotti ordinati non sono superiori alle quantità disponibili. 
+The *OrderManager* application allows you to:
+* create products and change their available quantity (i.e., their inventory level);
+* create orders related to one or more products;
+* request validation of an order.
 
+An order is considered valid if the order exists, if all the products ordered exist
+and if the ordered quantities of each of the ordered products do not exceed the available quantities.
 
-L'applicazione *OrderManager* è composta dai seguenti microservizi: 
+--- 
 
-* Il servizio *product-service* gestisce i prodotti. 
-  Ogni prodotto ha un nome (che lo identifica), la categoria, la quantità disponibile e il prezzo unitario. 
-  
-  Un esempio di prodotto: 
-  * name: Guerra e Pace
-  * category: Libro 
-  * stockLevel: 3
-  * price: 19.99
-  
-  Operazioni: 
-  * `POST /products` crea un nuovo prodotto (dati nome, categoria, quantità disponibile e prezzo unitario, passati nel corpo della richiesta)
-  * `GET /products/{name}` trova un prodotto, dato il nome 
-  * `GET /products` trova tutti i prodotti 
-  * `POST /findproducts/bynames` trova tutti prodotti che hanno il nome compreso in una lista di nomi (la lista di nomi è passata nel corpo della richiesta) 
-  * `PATCH /products` aggiorna la quantità disponibile di un prodotto (dati nome e variazione della quantità, passati nel corpo della richiesta) 
-  
-* Il servizio *order-service* gestisce gli ordini. 
-  Ogni ordine ha un id (che lo identifica), il cliente, l'indirizzo, un insieme di righe di ordine (ognuna con nome del prodotto e quantità) e il totale. 
-  
-  Un esempio di ordine: 
-  * id: 2
-  * customer: Woody
-  * address: Roma 
-  * orderItems: 
-    * product: Guerra e Pace, quantity: 2
-    * product: Anna Karenina, quantity: 1
-  * total: 50.97 
+The *OrderManager* application consists of the following microservices:
 
-  Operazioni: 
-  * `POST /orders` crea un nuovo ordine (dati cliente, indirizzo, articoli ordinati e totale, passati nel corpo della richiesta)
-  * `GET /orders/{id}` trova un ordine (dato l'id) 
-  * `GET /orders` trova tutti gli ordini  
-  * `GET /findorders/customer/{customer}` trova tutti gli ordini di un cliente (dato il cliente)  
-  * `GET /findorders/product/{product}` trova tutti gli ordini contenenti un certo prodotto (dato il prodotto)  
+* *product-service* manages products.
+Each product has a name (which identifies it), category, quantity available, and unit price.
 
-* Il servizio *order-validation-service* consente di validare un ordine. 
-  La convalida di un ordine (l'esito di una validazione) è composta dall'id dell'ordine, alcuni dati dell'ordine (cliente, prodotti ordinati), un indicatore di validità e una motivazione. 
-  
-  Un esempio di convalida: 
-  * id: 6
-  * customer: Woody
-  * orderItems: 
-    * product: Pace e Guerra, quantity: 1
-    * product: Anna Karenina, quantity: 10
-  * valid: false 
-  * motivation: Il prodotto Pace e Guerra non esiste. Il prodotto Anna Karenina non è disponibile nella quantità richiesta. 
+  Operations:
+  * `POST /products` creates a new product (given name, category, quantity available and unit price, passed in the body of the request)
+  * `GET /products/{name}` finds a product, given the name
+  * `GET /products` finds all products
+  * `POST /findproducts/bynames` finds all products that have the name included in a list of names (the list of names is passed into the body of the request)
+  * `PATCH /products` updates the available quantity of a product (name data and quantity change, passed into the body of the request)
 
-  Operazioni: 
-  * `GET /ordervalidations/{id}` calcola e restituisce la convalida di un ordine (dato l'id) 
+* *order-service* handles orders.
+Each order has an id (which identifies it), the customer, the address, a set of order lines (each with product name and quantity), and the total.
+  Operations:
+  * `POST /orders` creates a new order (customer data, address, items ordered and total, passed in the body of the request)
+  * `GET /orders/{id}` finds an order (given the id).
+  * `GET /orders` finds all orders
+  * `GET /findorders/customer/{customer}` finds all orders for a customer (given the customer)
+  * `GET /findorders/product/{product}` finds all orders containing a certain product (given the product)
 
-* Il servizio *api-gateway* (esposto sulla porta *8080*) è l'API gateway dell'applicazione che: 
-  * espone il servizio *product-service* sul path `/product-service` - ad esempio, `GET /product-service/products`
-  * espone il servizio *order-service* sul path `/order-service` - ad esempio, `GET /order-service/orders/{id}`
-  * espone il servizio *order-validation-service* sul path `/order-validation-service` - ad esempio, `GET /order-validation-service/ordervalidations/{id}`
+* *order-validation-service* allows an order to be validated.
+An order validation (the outcome of a validation) consists of the order id, some order data (customer, products ordered), a validity indicator, and a reason.
+  Operations:
+  * `GET /ordervalidations/{id}` calculates and returns the validation of an order (given the id)
 
+* The *api-gateway* service (exposed on port *8080*) is the application gateway API that:
+  * exposes the *product-service* service on the path `/product-service` - for example, `GET /product-service/products`.
+  * exposes the *order-service* service on the `/order-service` path - for example, `GET /order-service/orders/{id}`
+  * exposes the *order-validation-service* on the `/order-validation-service` path - for example, `GET /order-validation-service/order-validations/{id}`
 
-## Costruzione 
+---
 
-Per costruire questa applicazione: 
+The shell folder contains scripts to run and test the application.
 
-* eseguire il comando `gradle build` 
+## Build 
 
+To build this application:
 
-## Esecuzione 
+* run the `gradle build` command.
 
-Per eseguire questa applicazione: 
+## Execution
 
-* avviare *Consul* eseguendo lo script `start-consul.sh` 
+To run this application:
 
-* per avviare l'applicazione *OrderManager*, eseguire lo script `run-ordermanager.sh` 
-
-* per inizializzare le basi di dati con alcuni dati di esempio, eseguire gli script `do-init-products.sh` e `do-init-orders.sh` 
-
-
-Sono anche forniti alcuni script di esempio: 
-
-* lo script `do-get-products.sh` trova tutti i prodotti 
-
-* lo script `do-get-product.sh` trova un prodotto 
-
-* lo script `do-get-orders.sh` trova tutti gli ordini 
-
-* lo script `do-get-ordine.sh` trova un ordine 
-
-* lo script `do-validate-order.sh` convalida un ordine 
-
-Ed inoltre: 
-
-* lo script `do-validate-orders-123.sh` convalida gli ordini 1, 2 e 3
-
-* lo script `do-update-products.sh` aggiorna le quantità disponibili di alcuni ordini 
-
-Ed inoltre ancora: 
-
-* lo script `do-test-1.sh` esegue alcuni test (crea prodotti e ordini e poi esegue le validazioni degli ordini 1, 2 e 3, che sono tutti validi)
-
-* lo script `do-test-2.sh` esegue degli ulteriori test (modifica alcuni prodotti e poi esegue di nuovo le validazioni degli ordini 1, 2 e 3: ora gli ordini 1 e 2 non sono più validi, mentre l'ordine 3 è ancora valido)
-
-* lo script `do-test-3.sh` esegue alcuni ulteriori test (crea un nuovo ordine e poi esegue delle validazioni, che sono tutte non valide)
-
-* nota: questi test possono essere utilmente eseguiti in sequenza, senza eseguire prima nessuno degli altri script  
-
-Alla fine, l'applicazione può essere arrestata usando lo script `terminate-java-processes.sh` (**da usare con cautela!**). 
-
-Inoltre, *Consul* può essere arrestato con lo script `stop-consul.sh`. 
-
-
-## Descrizione delle attività da svolgere 
-
-Si veda la descrizione del progetto sul sito web del corso di [Architettura dei sistemi software](http://cabibbo.inf.uniroma3.it/asw/).
+* start *Docker* on your machine.
