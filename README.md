@@ -6,7 +6,7 @@ Course held in the year 2023-2024 by professor [Luca Cabibbo](https://github.com
 ---
 
 ### Languages and technologies
-<img src="https://skillicons.dev/icons?i=java,gradle,spring,postgres,docker,kafka">
+<img src="https://skillicons.dev/icons?i=java,gradle,spring,postgres,bash,docker,kafka">
 
 ---
 ## Description
@@ -35,6 +35,7 @@ Each product has a name (which identifies it), category, quantity available, and
   * `POST /findproducts/bynames` finds all products that have the name included in a list of names (the list of names is passed into the body of the request)
   * `PATCH /products` updates the available quantity of a product (name data and quantity change, passed into the body of the request)
 
+
 * *order-service* handles orders.
 Each order has an id (which identifies it), the customer, the address, a set of order lines (each with product name and quantity), and the total.
   Operations:
@@ -44,10 +45,12 @@ Each order has an id (which identifies it), the customer, the address, a set of 
   * `GET /findorders/customer/{customer}` finds all orders for a customer (given the customer)
   * `GET /findorders/product/{product}` finds all orders containing a certain product (given the product)
 
+
 * *order-validation-service* allows an order to be validated.
 An order validation (the outcome of a validation) consists of the order id, some order data (customer, products ordered), a validity indicator, and a reason.
   Operations:
   * `GET /ordervalidations/{id}` calculates and returns the validation of an order (given the id)
+
 
 * The *api-gateway* service (exposed on port *8080*) is the application gateway API that:
   * exposes the *product-service* service on the path `/product-service` - for example, `GET /product-service/products`.
