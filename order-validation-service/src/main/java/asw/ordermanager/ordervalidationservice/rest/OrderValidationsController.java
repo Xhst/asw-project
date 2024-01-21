@@ -2,9 +2,7 @@ package asw.ordermanager.ordervalidationservice.rest;
 
 import asw.ordermanager.ordervalidationservice.domain.*;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant; 
