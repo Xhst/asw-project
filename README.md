@@ -9,7 +9,7 @@ Course held in the year 2023-2024 by professor [Luca Cabibbo](https://github.com
 <img src="https://skillicons.dev/icons?i=java,gradle,spring,postgres,bash,docker,kafka">
 
 ---
-## Description
+## 👁 Description
 
 This project contains the code for *OrderManager*, a simple microservice application for managing product orders.
 
@@ -59,16 +59,26 @@ An order validation (the outcome of a validation) consists of the order id, some
 
 ---
 
+## 🧰 Build & Run
+
 The shell folder contains scripts to run and test the application.
 
-## Build 
-
+### 🛠️ Build the application
 To build this application:
+- Open a terminal in the folder where you cloned the repository
+- Run the `gradle build` command.
 
-* run the `gradle build` command.
-
-## Execution
-
+### ▶️ Run the application
 To run this application:
+- Build the application.
+- Start docker.
+- Open a terminal in the folder where you cloned the repository.
+- Run the `docker-compose up` command.
+  
+> [!TIP]  
+> If you're using IntelliJ IDEA you can directly run docker-compose from the IDE.
+> 
+> Open the `docker-compose.yml` and press the arrows button next to `services`.
 
-* start *Docker* on your machine.
+> [!IMPORTANT]
+> When you run the `docker-compose up` command docker creates the images and caches them and then starts the services, or, if they are already available in the cache, takes them from the cache and starts the services. If changes are made, if you run the command directly, they will not be visible since the cached images will be used. To solve this run the `docker-compose build --no-cache` command to recreate the images (remember to build the application first).
